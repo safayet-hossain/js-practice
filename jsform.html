@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Validation Form</title>
+    <script>
+        function validateForm(e) {
+            e.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var gender = document.getElementById("gender").value;
+            var email = document.getElementById("email").value;
+            var mobile = document.getElementById('mobile').value;
+            var district = document.getElementById('district').value;
+            console.log(name);
+            console.log(gender);
+            console.log(email);
+            console.log(mobile);
+            console.log(district);
+
+            if (name == "") {
+                
+                document.getElementById("err_name").innerHTML = 'name is required';
+             
+            }
+
+            if (gender == "") {
+
+                document.getElementById("err_gender").innerHTML ='gender is required';
+                
+            }
+
+            if (!validateEmail(email)) {
+                document.getElementById("err_email").innerHTML ='email is required';
+                
+            }
+            if (mobile == "") {
+
+                document.getElementById("err_mobile").innerHTML ='mobile number is required';
+
+            }       
+           
+            
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9-]+\.)+)[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+    </script>
+    </head>
+    <body>
+    <h1 id="title">Simple Validation Form</h1>
+    
+    <form onsubmit="validateForm(event)">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" >
+        <small id="err_name"></small>
+        <br>
+
+        <label for="gender">Gender:</label><br>
+
+        <input type="radio" id="gender" value="male" >
+        <label for="male">male</label><br>
+        
+        <input type="radio" id="gender" value="female">
+        <label for="female">female</label><br>
+
+        <small id="err_gender"></small>   
+                                            <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" >
+        <small id="err_email"></small>
+
+        <br>
+
+        <label for="mobile">Mobile Number:</label>
+    <input type="number" id="mobile" name="mobile" min="1000000000" max="9999999999" >
+    <!-- <span class="error" id="mobileError"></span> -->
+    <small id="err_mobile"></small>
+    <br>
+
+    <label for="district">District</label>
+    <select name="district" id="district">
+
+        <option value="Dhaka">Dhaka</option>
+        <option value="gazipur">gazipur</option>
+        <option value="shylet">shylet</option>
+        <option value="Tangail">Tangail</option>
+       
+
+    </select>
+    
+    <br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById("title").innerHTML
+
+    </script>
+</body>
+</html>

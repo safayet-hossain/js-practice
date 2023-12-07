@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <title>single Product Details</title>
+    <link rel="stylesheet" href="single_product.css" />
+    <link href="https:maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https:fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+    <script src="single.html"></script>
+    <script src="single_product.css"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active mt-5" id="pic-1">
+
+                                <img id="product-image" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title" id="product-title">men's shoes fashion</h3>
+                        <div class="rating" >
+                            <div class="stars">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <span class="review-no" id="product-category">Category</span>
+                        </div>
+
+                        <h4 class="price">current price: <span id="product-price">$180</span></h4>
+                        <p class="vote">
+                            <strong id="product-rating">91%</strong> of buyers enjoyed this product!
+                            <strong>(87 votes)</strong>
+                        </p>
+                        <h5 class="sizes">
+                            Description:
+                            <span class="size" id="product-description" data-toggle="tooltip" title="small">s</span>
+                            </span>
+                        </h5>
+                        <h5 class="colors">
+                            colors:
+                            <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                            <span class="color green"></span>
+                            <span class="color blue"></span>
+                        </h5>
+                        <div class="action">
+                            <button class="add-to-cart btn btn-default" type="button">
+                                add to cart
+                            </button>
+                            <button class="like btn btn-default" type="button">
+                                <span class="fa fa-heart"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>
+
+
+    function getPeram(query) {
+        const product_id = new URL(window.location.href).searchParams;
+        return product_id.get(query);
+    }
+    var product_id = getPeram("id");
+    // console.log(product_id);
+    fetch("https://fakestoreapi.com/products/" + product_id)
+        .then((res) => res.json())
+        .then((product) => {
+            // console.log("product", product);
+            document.getElementById("product-title").innerHTML = product.title;
+            document.getElementById("product-price").innerHTML = product.price;
+            document.getElementById("product-image").setAttribute('src',product.image);
+            document.getElementById("product-description").innerHTML = product.description;
+            document.getElementById("product-category").innerHTML = product.category;
+            document.getElementById("product-rating").innerHTML =product.rating['rate'];
+        });
+</script>
+
+
+</html>

@@ -34,13 +34,33 @@
                         </a>
                         <div class="dropdown-menu category-menu" aria-labelledby="navbarDropdown" id="category"></div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Product
-                        </a>
-                        <div class="dropdown-menu category-menu" aria-labelledby="navbarDropdown" id="product"></div>
+
+
+
+                    <div class="dropdown-menu category-menu" aria-labelledby="navbarDropdown" id="product"></div>
                     </li>
+
+            <li>
+                <div>
+                    <label for="products">Sort by</label>
+                    <select name="products" id="products">
+
+                    <option value="">1-5</option>
+                    <option value="">6-10</option>
+                    <option value="">11-15</option>
+                    <option value="">16-20</option>
+                  
+                   
+                    </select>
+                    <a href="">asc</a>
+                    <a href="">des</a>
+                    <!-- <input type="text"> -->
+                </div>
+            </li>
+            
+
+                   
+
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
@@ -51,11 +71,24 @@
             </div>
         </nav>
     </div>
+
+
+
     <div class="mx-5 my-3 row" id="product1">
-        
+        <!-- product -->
     </div>
+
+
+
 </body>
 <script>
+
+    function getQueryPeram(query) {
+        const params = new URL(window.location.href).searchParams;
+        return params.get(query);
+    }
+
+    // to get all category 
     var json = [];
     fetch("https://fakestoreapi.com/products/categories")
         .then((res) => res.json())
@@ -74,36 +107,47 @@
         });
 
     // document.getElementById("category").innerHTML = "data";
-</script>
 
-<script>
-    fetch("https://fakestoreapi.com/products")
+    //Getting products in a specific category tag
+
+    var url = "https://fakestoreapi.com/products";
+    var tag = getQueryPeram('tag');
+    console.log(tag);
+    if (tag != null) {
+        url = "https://fakestoreapi.com/products/category/" + tag;
+        // console.log(url);
+    }
+
+
+    //getting all product +single product view
+    fetch(url)
         .then((res) => res.json())
         .then((json2) => {
-      
+
             var data1 = "";
             for (let index = 0; index < json2.length; index++) {
                 var element = json2[index];
-                // console.log(element);
+                console.log(element);
 
-               data1 += `<div class="card-deck col-3">
-                        <div class="card">
-                            <img src="${element.image}" class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">${element.title}</h5>
-                                <p class="card-text">
-                                    This is a longer card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit
-                                    longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>`;
+                data1 += `<div class="card-deck col-3">
+        <div class="card">
+            <img src="${element.image}" class="card-img-top" alt="" />
+            <div class="card-body">
+              <a  <h5 href="single.html?id=${element.id}" class="card-title">${element.title}</h5> /a>
+                <p class="card-text">
+                    This is a longer card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+        </div>
+    </div>`;
 
-                console.log(data1);
+
+                // console.log(data1);
                 document.getElementById("product1").innerHTML = data1;
             }
         });
